@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('ssRate');
             $table->string('spsCount');
             $table->string('spsRate');
-            $table->string('aggro');
+            $table->string('aggro')->nullable();
             $table->string('clan')->nullable();
             $table->string('clanRange')->nullable();
             $table->string('ignoredIds')->nullable();
