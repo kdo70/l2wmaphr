@@ -11,17 +11,18 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('npc_skills', function (Blueprint $table) {
+        Schema::create('npc_pets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('npc_id')
                 ->constrained('npcs')
                 ->cascadeOnDelete();
-            $table->foreignId('skill_id')
-                ->constrained('skills')
-                ->cascadeOnDelete();
-            $table->string('level');
+            $table->string('food1');
+            $table->string('food2');
+            $table->string('autoFeedLimit');
+            $table->string('hungryLimit');
+            $table->string('unsummonLimit');
             $table->timestamps();
-            $table->comment('NPC - Умения');
+            $table->comment('NPC - Питомцы');
         });
     }
 
@@ -31,6 +32,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('npc_skills');
+        Schema::dropIfExists('npc_pets');
     }
 };

@@ -5,6 +5,10 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+    /**
+     * Run the migrations.
+     * @return void
+     */
     public function up()
     {
         Schema::create('npcs', function (Blueprint $table) {
@@ -13,9 +17,14 @@ return new class extends Migration {
             $table->string('name');
             $table->string('title')->nullable();
             $table->timestamps();
+            $table->comment('NPC');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     * @return void
+     */
     public function down()
     {
         Schema::dropIfExists('npc');

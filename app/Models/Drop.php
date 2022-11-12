@@ -5,16 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Модель - "Умение"
- * @method static firstOrCreate(array|\TValue[] $all)
+ * Модель - "Дроп"
+ * @method static insert(array|\TValue[] $all)
  */
-class Skill extends Model
+class Drop extends Model
 {
     /**
      * Атрибуты доступные для загрузки
      * @var string[]
      */
     protected $fillable = [
-        'id',
+        'npc_id',
+        'category',
+        'itemid',
+        'min',
+        'max',
+        'chance',
     ];
 }
