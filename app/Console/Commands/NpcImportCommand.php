@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 
 /**
- * Команда: "Импорт\Экспорт NPC XML\DB"
+ * Команда: "Импорт npc xml to database"
  */
-class NpcCommand extends Command
+class NpcImportCommand extends Command
 {
     /**
      * Подпись команды
@@ -35,7 +35,7 @@ class NpcCommand extends Command
      * Описание команды
      * @var string
      */
-    protected $description = 'Импорт\Экспорт NPC XML\DB';
+    protected $description = 'Импорт npc xml to database';
 
     /**
      * Коллекция схем используемых моделей
@@ -60,21 +60,21 @@ class NpcCommand extends Command
     {
         Npc::query()->delete();
 
-        $files = Storage::allFiles('npc');
+        $filesPath = Storage::allFiles('npc');
 
-        $this->insertNpcData($files);
-        $this->insertNpcMinions($files);
+        $this->insertNpcData($filesPath);
+        $this->insertNpcMinions($filesPath);
     }
 
     /**
      * Записать основную информацию о NPC
-     * @param array $files Набор XML файлов NPC
+     * @param array $filesPath Набор XML файлов NPC
      * @return void
      */
-    public function insertNpcData(array $files)
+    public function insertNpcData(array $filesPath)
     {
-        foreach ($files as $file) {
-            $npcItems = $this->prepareNpcData($file);
+        foreach ($filesPath as $filePath) {
+            $npcItems = $this->prepareNpcData($filePath);
 
             $bar = $this->output->createProgressBar(count($npcItems));
             $bar->start();
@@ -96,13 +96,13 @@ class NpcCommand extends Command
 
     /**
      * Записать информацию о миньонах
-     * @param array $files Набор XML файлов NPC
+     * @param array $filesPath Набор XML файлов NPC
      * @return void
      */
-    public function insertNpcMinions(array $files)
+    public function insertNpcMinions(array $filesPath)
     {
-        foreach ($files as $file) {
-            $npcItems = $this->prepareNpcData($file);
+        foreach ($filesPath as $filePath) {
+            $npcItems = $this->prepareNpcData($filePath);
 
             $bar = $this->output->createProgressBar(count($npcItems));
             $bar->start();
@@ -310,12 +310,12 @@ class NpcCommand extends Command
 
     /**
      * Подготовить файл для чтения
-     * @param string $file Путь до файла
+     * @param string $path Путь до файла
      * @return array|ArrayAccess|mixed
      */
-    public function prepareNpcData(string $file): mixed
+    public function prepareNpcData(string $path): mixed
     {
-        $storagePath = storage_path('app\\' . $file);
+        $storagePath = storage_path('app\\' . $path);
         $filePath = str_replace("/", "\\", $storagePath);
         $content = File::get($filePath);
         $xml = simplexml_load_string($content);
