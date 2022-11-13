@@ -17,10 +17,10 @@ return new class extends Migration {
                 ->constrained('npcs')
                 ->cascadeOnDelete();
             $table->string('category');
-            $table->string('itemid');
-            $table->string('min');
-            $table->string('max');
-            $table->string('chance');
+            $table->integer('itemid');
+            $table->integer('min');
+            $table->integer('max');
+            $table->integer('chance');
             $table->timestamps();
             $table->comment('DROP');
         });

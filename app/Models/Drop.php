@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\NPC\Npc;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Модель - "Дроп"
@@ -22,4 +24,9 @@ class Drop extends Model
         'max',
         'chance',
     ];
+
+    public function npc(): BelongsTo
+    {
+        return $this->belongsTo(Npc::class, 'npc_id');
+    }
 }

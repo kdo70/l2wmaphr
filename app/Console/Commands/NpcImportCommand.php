@@ -29,7 +29,7 @@ class NpcImportCommand extends Command
      * Подпись команды
      * @var string
      */
-    protected $signature = 'npc';
+    protected $signature = 'npc:import';
 
     /**
      * Описание команды
